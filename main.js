@@ -134,13 +134,15 @@ const rooms = [
   }
 ];
 
-const warmOverlay = `linear-gradient(
-  to bottom,
-  rgba(141, 158, 247, 0.2),
-  rgba(194, 197, 215, 0.1)
-)`;
+const warmOverlay = [
+  'rgba(236, 96, 98, 0.2)', // top
+  'rgba(248, 210, 211, 0.13)' // bottom
+];
+const coolOverlay = [
+  'rgba(141, 158, 247, 0.2)',
+  'rgba(194, 197, 215, 0.1)'
+];
 
-const coolOverlay = `linear-gradient(to bottom, rgba(236, 96, 98, 0.2), rgba(248, 210, 211, 0.13))`;
 
 // Initialize overlay for first room
 const setInitialOverlay = () => {
@@ -153,9 +155,15 @@ const setInitialOverlay = () => {
 // Set overlay based on temperature
 const setOverlay = (room) => {
   const roomElement = document.querySelector(".room");
-  roomElement.style.backgroundImage = `url('${room.image}'), ${
-    room.currTemp < 25 ? coolOverlay : warmOverlay
-  }`;
+  const overlay = room.currTemp <= 24 ? coolOverlay : warmOverlay;
+
+  roomElement.style.backgroundImage = `
+    linear-gradient(to bottom, ${overlay[0]}, ${overlay[1]}),
+    url('${room.image}')
+  `;
+  roomElement.style.backgroundRepeat = 'no-repeat';
+  roomElement.style.backgroundSize = 'cover';
+  roomElement.style.backgroundPosition = 'center';
 };
 
 // Temperature indicator calculations
