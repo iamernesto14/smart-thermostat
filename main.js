@@ -235,6 +235,21 @@ document.getElementById("reduce").addEventListener("click", () => {
   }
 });
 
+// Default Settings Controls
+document.querySelector(".default-settings").addEventListener("click", (e) => {
+  if (e.target.closest("button")?.id === "cool") {
+    selectedRoom.setCurrTemp(selectedRoom.coldPreset);
+    updateRoomUI(selectedRoom);
+    generateRooms();
+  }
+
+  if (e.target.closest("button")?.id === "warm") {
+    selectedRoom.setCurrTemp(selectedRoom.warmPreset);
+    updateRoomUI(selectedRoom);
+    generateRooms();
+  }
+});
+
 // Preset Controls
 const inputsDiv = document.querySelector(".inputs");
 document.getElementById("newPreset").addEventListener("click", () => {
