@@ -321,8 +321,9 @@ function generateRooms() {
         <span class="time">${room.endTime}</span>
       </div>
       <span class="room-status" style="display: ${room.airConditionerOn ? "block" : "none"}">
-        ${room.currTemp > 25 ? "Cooling room to: " : "Warming room to: "}${room.currTemp}°
-      </span>
+  ${room.currTemp <= 24 ? "Cooling room to: " : "Warming room to: "}${room.currTemp}°
+</span>
+
     </div>
   `).join('');
 }
