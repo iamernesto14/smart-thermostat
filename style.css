@@ -406,3 +406,27 @@ span.room-status {
   margin: 20px 0 0 0;
   color: #7c7c83;
 }
+
+.toast {
+  position: fixed;
+  bottom: -100px; /* Hidden by default */
+  right: 30px;
+  background-color: #4458c3;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-weight: bold;
+  opacity: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  transition: bottom 0.4s ease, opacity 0.4s ease;
+}
+
+.toast.show {
+  bottom: 30px;
+  opacity: 0.95;
+}
+
+.toast.hidden {
+  display: none;
+}

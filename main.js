@@ -242,32 +242,67 @@ document.getElementById("newPreset").addEventListener("click", () => {
 });
 
 document.getElementById("close").addEventListener("click", () => {
+  // Hide the input panel
   inputsDiv.classList.add("hidden");
+
+  // Also hide and clear the error message
+  const errorSpan = document.querySelector(".error");
+  errorSpan.style.display = "none";
+  errorSpan.textContent = "";
 });
+
 
 document.getElementById("save").addEventListener("click", () => {
   const coolInput = document.getElementById("coolInput");
   const warmInput = document.getElementById("warmInput");
   const errorSpan = document.querySelector(".error");
 
-  if (coolInput.value && warmInput.value) {
-    const coolTemp = parseInt(coolInput.value);
-    const warmTemp = parseInt(warmInput.value);
+  const coolValue = coolInput.value.trim();
+  const warmValue = warmInput.value.trim();
 
-    if (coolTemp < 10 || coolTemp > 25 || warmTemp < 25 || warmTemp > 32) {
-      errorSpan.style.display = "block";
-      errorSpan.textContent = "Cool: 10°-25°, Warm: 25°-32°";
-      return;
-    }
+  const coolTemp = parseInt(coolValue, 10);
+  const warmTemp = parseInt(warmValue, 10);
 
-    selectedRoom.setColdPreset(coolTemp);
-    selectedRoom.setWarmPreset(warmTemp);
-    coolInput.value = "";
-    warmInput.value = "";
-    errorSpan.style.display = "none";
-    inputsDiv.classList.add("hidden");
+  const isCoolValid = !isNaN(coolTemp) && coolTemp >= 10 && coolTemp <= 24;
+  const isWarmValid = !isNaN(warmTemp) && warmTemp >= 25 && warmTemp <= 32;
+
+  if (coolValue === "" || warmValue === "") {
+    errorSpan.style.display = "block";
+    errorSpan.textContent = "Please fill in both preset values.";
+    return;
   }
+
+  if (!isCoolValid || !isWarmValid) {
+    errorSpan.style.display = "block";
+    errorSpan.textContent = "Cool: 10°–24°, Warm: 25°–32°";
+    return;
+  }
+
+  // If all valid, save and reset
+  selectedRoom.setColdPreset(coolTemp);
+  selectedRoom.setWarmPreset(warmTemp);
+  coolInput.value = "";
+  warmInput.value = "";
+  errorSpan.style.display = "none";
+  inputsDiv.classList.add("hidden");
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.remove("hidden");
+    toast.classList.add("show");
+  
+    setTimeout(() => {
+      toast.classList.remove("show");
+      setTimeout(() => toast.classList.add("hidden"), 400); // Wait for animation to end
+    }, 3000);
+  }
+  
+  // Usage after saving:
+  showToast("Presets saved successfully!");
+  
 });
+
 
 // Rooms Control Panel
 function generateRooms() {
