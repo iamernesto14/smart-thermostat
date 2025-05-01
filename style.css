@@ -364,20 +364,35 @@ svg.point {
 .bars .bar:nth-child(n + 1):nth-child(-n + 15) {
   background-color: #ffae33;
 }
-
+/* 
 .time {
-  padding-left: 10px; /* Add spacing between times */
+  padding-left: 10px; 
+} */
+
+@media only screen and (max-width: 1020px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @media only screen and (max-width: 470px) {
   .container {
     width: 360px;
   }
+
+  .bars {
+    gap: 4px;
+  }
 }
 
 @media only screen and (max-width: 380px) {
   .container {
     width: 320px;
+  }
+
+  .bars {
+    gap: 3px;
   }
 }
 
