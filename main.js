@@ -238,6 +238,13 @@ function initializeRoomSelection() {
 }
 
 function updateRoomUI(room) {
+  document.querySelectorAll(".room-control").forEach(card => {
+    card.classList.remove("selected");
+    if (card.id === room.name) {
+      card.classList.add("selected");
+    }
+  });
+
   // Update all temperature displays
   currentTempDisplay.textContent = `${room.currTemp}°`;
   document.querySelector(".currentTemp").textContent = `${room.currTemp}°`;

@@ -570,3 +570,9 @@ span.room-status {
 .ac-toggle-switch .label-text {
   font-size: 1rem;
 }
+
+.room-control.selected {
+  border: 1px solid #007BFF;
+  background-color: rgba(0, 123, 255, 0.1);
+  border-radius: 8px;
+}
