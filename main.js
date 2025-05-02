@@ -354,9 +354,10 @@ function generateRooms() {
 
 
 const defaultRooms = [
-  { name: 'Living Room', temperature: 22, unit: '°C' },
+  { name: 'Living', temperature: 22, unit: '°C' },
   { name: 'Bedroom', temperature: 20, unit: '°C' },
-  { name: 'Kitchen', temperature: 24, unit: '°C' },
+  { name: 'Bathroom', temperature: 24, unit: '°C' },
+  { name: 'Kitchen', temperature: 15, unit: '°C' },
 ];
 
 // Load rooms from localStorage, but include default rooms if none exist
