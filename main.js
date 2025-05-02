@@ -1,5 +1,20 @@
 // Room objects
-const rooms = [
+
+let rooms = [];
+loadRoomsFromLocalStorage();
+function loadRoomsFromLocalStorage() {
+  const storedRooms = localStorage.getItem('rooms');
+  if (storedRooms) { rooms = JSON.parse(storedRooms).map(room => ({
+    ...room,
+    setCurrTemp(temp) { this.currTemp = temp; },
+    setColdPreset(temp) { this.coldPreset = temp; },
+    setWarmPreset(temp) { this.warmPreset = temp; },
+    increaseTemp() { this.currTemp++; },
+    decreaseTemp() { this.currTemp--; },
+    toggleAircon() { this.airConditionerOn = !this.airConditionerOn; }
+  }));
+} else {
+rooms = [
   {
     name: "Living Room",
     currTemp: 32,
@@ -133,13 +148,22 @@ const rooms = [
     },
   }
 ];
+saveRoomsToLocalStorage();
+}
+}
+loadRoomsFromLocalStorage(); // Load rooms from local storage on page load
+
+// Save rooms to local storage
+function saveRoomsToLocalStorage() {
+  localStorage.setItem('rooms', JSON.stringify(rooms));
+}
 
 const warmOverlay = [
-  'rgba(236, 96, 98, 0.2)', // top
+  'rgba(242, 39, 42, 0.31)', // top
   'rgba(248, 210, 211, 0.13)' // bottom
 ];
 const coolOverlay = [
-  'rgba(141, 158, 247, 0.2)',
+  'rgba(141, 159, 247, 0.31)',
   'rgba(194, 197, 215, 0.1)'
 ];
 
@@ -185,6 +209,17 @@ const setIndicatorPoint = (currTemp) => {
   svgPoint.style.transform = `translate(${position.translateX}px, ${position.translateY}px)`;
 };
 
+function showToast(message) {
+  const toast = document.getElementById("toaster");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000); // Hide after 3 seconds
+}
+
+
 // Room Selection Functionality
 const roomSelect = document.getElementById("rooms");
 const currentTempDisplay = document.getElementById("temp");
@@ -224,8 +259,10 @@ document.getElementById("increase").addEventListener("click", () => {
     selectedRoom.increaseTemp();
     updateRoomUI(selectedRoom);
     generateRooms();
+    saveRoomsToLocalStorage(); // 
   }
 });
+
 
 document.getElementById("reduce").addEventListener("click", () => {
   if (selectedRoom.currTemp > 10) {
@@ -241,14 +278,23 @@ document.querySelector(".default-settings").addEventListener("click", (e) => {
     selectedRoom.setCurrTemp(selectedRoom.coldPreset);
     updateRoomUI(selectedRoom);
     generateRooms();
+    saveRoomsToLocalStorage(); // ✅ Save after preset change
   }
 
   if (e.target.closest("button")?.id === "warm") {
     selectedRoom.setCurrTemp(selectedRoom.warmPreset);
     updateRoomUI(selectedRoom);
     generateRooms();
+    saveRoomsToLocalStorage(); // ✅ Save after preset change
   }
 });
+
+
+  // if (e.target.closest("button")?.id === "warm") {
+  //   selectedRoom.setCurrTemp(selectedRoom.warmPreset);
+  //   updateRoomUI(selectedRoom);
+  //   generateRooms();
+  // };
 
 // Preset Controls
 const inputsDiv = document.querySelector(".inputs");
@@ -355,6 +401,93 @@ document.querySelector(".rooms-control").addEventListener("click", (e) => {
     updateRoomUI(selectedRoom);
   }
 });
+
+
+// Add Room Modal
+const addRoomBtn = document.getElementById("addRoomBtn");
+const addRoomModal = document.getElementById("addRoomModal");
+const saveRoomBtn = document.getElementById("saveRoomBtn");
+const cancelRoomBtn = document.getElementById("cancelRoomBtn");
+
+addRoomBtn.addEventListener("click", () => {
+  addRoomModal.classList.remove("hidden");
+});
+
+cancelRoomBtn.addEventListener("click", () => {
+  addRoomModal.classList.add("hidden");
+
+  // Clear inputs
+  document.getElementById("newRoomName").value = "";
+  document.getElementById("newRoomImage").value = "";
+
+  // Clear validation states
+  const nameInput = document.getElementById("newRoomName");
+  const errorMessage = document.getElementById("roomErrorMessage");
+  nameInput.classList.remove("input-error");
+  errorMessage.textContent = "";
+  errorMessage.style.display = "none";
+});
+
+
+saveRoomBtn.addEventListener("click", () => {
+  const nameInput = document.getElementById("newRoomName");
+  const imageInput = document.getElementById("newRoomImage");
+  const errorMessage = document.getElementById("roomErrorMessage");
+  const name = nameInput.value.trim();
+  const imageURL = "./assets/roomImage.webp"; 
+
+  nameInput.classList.remove("input-error");
+  errorMessage.textContent = "";
+  errorMessage.style.display = "none";
+
+  if (!name) {
+    nameInput.classList.add("input-error");
+    errorMessage.textContent = "Room name is required.";
+    errorMessage.style.display = "block";
+    return;
+  }
+
+  const exists = rooms.some(r => r.name.toLowerCase() === name.toLowerCase());
+  if (exists) {
+    nameInput.classList.add("input-error");
+    errorMessage.textContent = "Room with that name already exists.";
+    errorMessage.style.display = "block";
+    nameInput.value = "";
+    // imageInput.value = "";
+    return;
+  }
+
+  const newRoom = {
+    name,
+    currTemp: 25,
+    coldPreset: 20,
+    warmPreset: 30,
+    image: imageURL,
+    airConditionerOn: false,
+    startTime: '16:30',
+    endTime: '20:00',
+    setCurrTemp(temp) { this.currTemp = temp; },
+    setColdPreset(temp) { this.coldPreset = temp; },
+    setWarmPreset(temp) { this.warmPreset = temp; },
+    increaseTemp() { this.currTemp++; },
+    decreaseTemp() { this.currTemp--; },
+    toggleAircon() { this.airConditionerOn = !this.airConditionerOn; }
+  };
+
+  rooms.push(newRoom);
+  saveRoomsToLocalStorage();
+  selectedRoom = newRoom;
+  nameInput.value = "";
+  addRoomModal.classList.add("hidden");
+
+  showToast("Room added successfully!");
+  initializeRoomSelection();
+  updateRoomUI(selectedRoom); 
+  generateRooms(); 
+});
+
+
+
 
 // Initialize everything
 setInitialOverlay();
