@@ -289,13 +289,6 @@ document.querySelector(".default-settings").addEventListener("click", (e) => {
   }
 });
 
-
-  // if (e.target.closest("button")?.id === "warm") {
-  //   selectedRoom.setCurrTemp(selectedRoom.warmPreset);
-  //   updateRoomUI(selectedRoom);
-  //   generateRooms();
-  // };
-
 // Preset Controls
 const inputsDiv = document.querySelector(".inputs");
 document.getElementById("newPreset").addEventListener("click", () => {
@@ -388,6 +381,21 @@ function generateRooms() {
     </div>
   `).join('');
 }
+
+const resetAllACBtn = document.getElementById("reset-ac-btn");
+const acToggleLabel = document.getElementById("ac-toggle-label");
+
+resetAllACBtn.addEventListener("change", () => {
+  const newState = resetAllACBtn.checked;
+
+  // Toggle all A/Cs
+  rooms.forEach(room => {
+    room.airConditionerOn = newState;
+  });
+
+  generateRooms();
+});
+
 
 document.querySelector(".rooms-control").addEventListener("click", (e) => {
   if (e.target.closest(".switch")) {

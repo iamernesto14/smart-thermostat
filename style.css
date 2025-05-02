@@ -515,3 +515,58 @@ span.room-status {
   visibility: visible;
   opacity: 1;
 }
+
+.rooms-panel {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: end;
+  padding-top: 20px;
+  background-color: #ffffff;
+}
+
+.ac-toggle-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  margin-right: 30px;
+}
+
+.ac-toggle-switch input[type="checkbox"] {
+  display: none;
+}
+
+.ac-toggle-switch .slider {
+  position: relative;
+  width: 50px;
+  height: 24px;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: background-color 0.3s;
+}
+
+.ac-toggle-switch .slider::before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  top: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.ac-toggle-switch input[type="checkbox"]:checked + .slider {
+  background-color: var(--warm-red);
+}
+
+.ac-toggle-switch input[type="checkbox"]:checked + .slider::before {
+  transform: translateX(26px);
+}
+
+.ac-toggle-switch .label-text {
+  font-size: 1rem;
+}
