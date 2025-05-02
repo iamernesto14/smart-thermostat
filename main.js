@@ -372,46 +372,6 @@ function loadRooms() {
   initializeRoomSelection();
 }
 
-// Deleting a room card
-document.querySelector(".rooms-control").addEventListener("click", (e) => {
-  if (e.target.classList.contains("delete-btn")) {
-    const roomElement = e.target.closest(".room-control");
-    const roomName = roomElement.id;
-    deleteRoom(roomName); // Call deleteRoom on button click
-  }
-});
-
-// Delete room logic
-function deleteRoom(roomName) {
-  // Prevent deleting default rooms
-  if (defaultRooms.some(room => room.name === roomName)) {
-    showToast(`${roomName} cannot be deleted because it is a default room.`);
-    return; // Do not delete default rooms
-  }
-
-  const roomIndex = rooms.findIndex(room => room.name === roomName);
-  
-  if (roomIndex !== -1) {
-    // Remove the room from the rooms array
-    rooms.splice(roomIndex, 1);
-
-    // Save to localStorage after deletion
-    saveRoomsToLocalStorage();
-
-    // Re-render rooms after deletion
-    generateRooms();
-    initializeRoomSelection();  // Re-initialize the dropdown list of rooms
-
-    // Select the previous room or the first room if there is no previous one
-    let previousRoom = roomIndex > 0 ? rooms[roomIndex - 1] : rooms[0];
-    selectedRoom = previousRoom;
-    roomSelect.value = selectedRoom.name;
-    updateRoomUI(selectedRoom);
-
-    // Show success toast for deletion
-    showToast(`${roomName} successfully removed!`);
-  }
-}
 
 // Show toast function to show success or error messages
 function showToast(message) {
