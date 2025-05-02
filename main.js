@@ -31,6 +31,8 @@ function loadRoomsFromLocalStorage() {
         schedule: {
           startTime: '16:30',
           endTime: '20:00',
+          startPercent: 68.75, // (16.5/24)*100
+          endPercent: 83.33    // (20/24)*100
         },
         setCurrTemp(temp) { this.currTemp = temp; },
         setColdPreset(newCold) { this.coldPreset = newCold; },
@@ -48,7 +50,9 @@ function loadRoomsFromLocalStorage() {
         airConditionerOn: false,
         schedule: {
           startTime: '16:30',
-          endTime: '20:00'
+          endTime: '20:00',
+          startPercent: 68.75, // (16.5/24)*100
+          endPercent: 83.33    // (20/24)*100
         },
         setCurrTemp(temp) { this.currTemp = temp; },
         setColdPreset(newCold) { this.coldPreset = newCold; },
@@ -66,7 +70,9 @@ function loadRoomsFromLocalStorage() {
         airConditionerOn: false,
         schedule: {
           startTime: '16:30',
-          endTime: '20:00'
+          endTime: '20:00',
+          startPercent: 68.75, // (16.5/24)*100
+          endPercent: 83.33    // (20/24)*100
         },
         setCurrTemp(temp) { this.currTemp = temp; },
         setColdPreset(newCold) { this.coldPreset = newCold; },
@@ -84,7 +90,9 @@ function loadRoomsFromLocalStorage() {
         airConditionerOn: false,
         schedule: {
           startTime: '16:30',
-          endTime: '20:00'
+          endTime: '20:00',
+          startPercent: 68.75, // (16.5/24)*100
+          endPercent: 83.33    // (20/24)*100
         },
         setCurrTemp(temp) { this.currTemp = temp; },
         setColdPreset(newCold) { this.coldPreset = newCold; },
