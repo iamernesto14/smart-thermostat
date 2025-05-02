@@ -613,3 +613,35 @@ span.room-status {
   color: #333;
 }
 
+/* Room card base styling */
+.room-control {
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+/* Styling for the hover effect */
+.room-control:hover {
+  background-color: rgba(240, 128, 128, 0.697);
+  border-radius: 10px;
+}
+
+/* Hide the delete button by default */
+.delete-btn {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  font-size: 24px;
+  color: white;
+}
+
+/* Show the delete button only on hover */
+.room-control:hover .delete-btn {
+  display: block;
+}

@@ -216,7 +216,7 @@ document.getElementById("increase").addEventListener("click", () => {
     selectedRoom.increaseTemp();
     updateRoomUI(selectedRoom);
     generateRooms();
-    saveRoomsToLocalStorage(); // Save the updated room data
+    saveRoomsToLocalStorage();
   }
 });
 
@@ -320,6 +320,7 @@ const roomsPerPage = 4;
 
 
 // Rooms Control Panel
+// Rooms Control Panel
 function generateRooms() {
   const totalPages = Math.ceil(rooms.length / roomsPerPage);
   const roomsControlContainer = document.querySelector(".rooms-control");
@@ -334,6 +335,8 @@ function generateRooms() {
         <button class="switch">
           <ion-icon name="power-outline" class="${room.airConditionerOn ? "powerOn" : ""}"></ion-icon>
         </button>
+        <!-- Disable delete button for default rooms -->
+        <button class="delete-btn" ${defaultRooms.includes(room.name) ? 'disabled' : ''}>Delete</button>
       </div>
       <div class="time-display">
         <span class="time">${room.startTime}</span>
@@ -345,7 +348,81 @@ function generateRooms() {
       </span>
     </div>
   `).join('');
+
   updatePaginationControls(totalPages);
+}
+
+
+const defaultRooms = [
+  { name: 'Living Room', temperature: 22, unit: '°C' },
+  { name: 'Bedroom', temperature: 20, unit: '°C' },
+  { name: 'Kitchen', temperature: 24, unit: '°C' },
+];
+
+// Load rooms from localStorage, but include default rooms if none exist
+function loadRooms() {
+  const storedRooms = JSON.parse(localStorage.getItem('rooms'));
+  if (storedRooms && storedRooms.length > 0) {
+    rooms = storedRooms;
+  } else {
+    rooms = [...defaultRooms];  // Use the default rooms if no rooms are saved
+  }
+  generateRooms();
+  initializeRoomSelection();
+}
+
+// Deleting a room card
+document.querySelector(".rooms-control").addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-btn")) {
+    const roomElement = e.target.closest(".room-control");
+    const roomName = roomElement.id;
+    deleteRoom(roomName); // Call deleteRoom on button click
+  }
+});
+
+// Delete room logic
+function deleteRoom(roomName) {
+  // Prevent deleting default rooms
+  if (defaultRooms.some(room => room.name === roomName)) {
+    showToast(`${roomName} cannot be deleted because it is a default room.`);
+    return; // Do not delete default rooms
+  }
+
+  const roomIndex = rooms.findIndex(room => room.name === roomName);
+  
+  if (roomIndex !== -1) {
+    // Remove the room from the rooms array
+    rooms.splice(roomIndex, 1);
+
+    // Save to localStorage after deletion
+    saveRoomsToLocalStorage();
+
+    // Re-render rooms after deletion
+    generateRooms();
+    initializeRoomSelection();  // Re-initialize the dropdown list of rooms
+
+    // Select the previous room or the first room if there is no previous one
+    let previousRoom = roomIndex > 0 ? rooms[roomIndex - 1] : rooms[0];
+    selectedRoom = previousRoom;
+    roomSelect.value = selectedRoom.name;
+    updateRoomUI(selectedRoom);
+
+    // Show success toast for deletion
+    showToast(`${roomName} successfully removed!`);
+  }
+}
+
+// Show toast function to show success or error messages
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.remove("hidden");
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.classList.add("hidden"), 400);
+  }, 3000); 
 }
 
 
