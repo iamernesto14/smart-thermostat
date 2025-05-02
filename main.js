@@ -364,11 +364,19 @@ document.getElementById("save").addEventListener("click", () => {
   
 });
 
+let currentPage = 1;
+const roomsPerPage = 4;
+
 
 // Rooms Control Panel
 function generateRooms() {
+  const totalPages = Math.ceil(rooms.length / roomsPerPage);
   const roomsControlContainer = document.querySelector(".rooms-control");
-  roomsControlContainer.innerHTML = rooms.map(room => `
+  const start = (currentPage - 1) * roomsPerPage;
+  const end = start + roomsPerPage;
+  const paginatedRooms = rooms.slice(start, end);
+
+  roomsControlContainer.innerHTML = paginatedRooms.map(room => `
     <div class="room-control" id="${room.name}">
       <div class="top">
         <h3 class="room-name">${room.name} - ${room.currTemp}°</h3>
@@ -382,12 +390,29 @@ function generateRooms() {
         <span class="time">${room.endTime}</span>
       </div>
       <span class="room-status" style="display: ${room.airConditionerOn ? "block" : "none"}">
-  ${room.currTemp <= 24 ? "Cooling room to: " : "Warming room to: "}${room.currTemp}°
-</span>
-
+        ${room.currTemp <= 24 ? "Cooling room to: " : "Warming room to: "}${room.currTemp}°
+      </span>
     </div>
   `).join('');
+  updatePaginationControls(totalPages);
+  
 }
+
+function updatePaginationControls(totalPages) {
+  const pageIndicator = document.querySelector("#pageIndicator");
+  if (pageIndicator) {
+    pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+  }
+
+  const prevBtn = document.querySelector("#prevPage");
+  const nextBtn = document.querySelector("#nextPage");
+
+  if (prevBtn && nextBtn) {
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+  }
+}
+
 
 const resetAllACBtn = document.getElementById("reset-ac-btn");
 const acToggleLabel = document.getElementById("ac-toggle-label");
@@ -446,7 +471,7 @@ cancelRoomBtn.addEventListener("click", () => {
 
 saveRoomBtn.addEventListener("click", () => {
   const nameInput = document.getElementById("newRoomName");
-  const imageInput = document.getElementById("newRoomImage");
+  // const imageInput = document.getElementById("newRoomImage");
   const errorMessage = document.getElementById("roomErrorMessage");
   const name = nameInput.value.trim();
   const imageURL = "./assets/roomImage.webp"; 
@@ -490,17 +515,29 @@ saveRoomBtn.addEventListener("click", () => {
   };
 
   rooms.push(newRoom);
-  saveRoomsToLocalStorage();
-  selectedRoom = newRoom;
-  nameInput.value = "";
-  addRoomModal.classList.add("hidden");
+  currentPage = Math.ceil(rooms.length / roomsPerPage);
+  generateRooms();
+  updateMainDisplay(rooms.find(room => room.name === roomName));
 
-  showToast("Room added successfully!");
-  initializeRoomSelection();
-  updateRoomUI(selectedRoom); 
-  generateRooms(); 
+  showToast("Room added successfully");
+  form.reset();
+  modal.classList.remove("show"); 
 });
 
+document.getElementById("prevPage").addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    generateRooms();
+  }
+});
+
+document.getElementById("nextPage").addEventListener("click", () => {
+  const totalPages = Math.ceil(rooms.length / roomsPerPage);
+  if (currentPage < totalPages) {
+    currentPage++;
+    generateRooms();
+  }
+});
 
 
 

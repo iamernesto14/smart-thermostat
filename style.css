@@ -32,7 +32,7 @@ body {
 }
 
 .container {
-  padding: 30px;
+  padding: 30px 30px 0 30px;
   background-color: #ffffff;
   border-radius: 8px;
   cursor: pointer;
@@ -290,7 +290,6 @@ svg.point {
   height: 200px;
   margin: 0 0 30px 0;
   position: relative;
-  /* background-image: url("./assets/living-room.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -523,6 +522,7 @@ span.room-status {
   align-items: end;
   padding-top: 20px;
   background-color: #ffffff;
+  border-radius: 8px;
 }
 
 .ac-toggle-switch {
@@ -576,3 +576,40 @@ span.room-status {
   background-color: rgba(0, 123, 255, 0.1);
   border-radius: 8px;
 }
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 12px auto 18px auto; 
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.pagination-button {
+  border: none;
+  color: black;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.pagination-button:hover:not(:disabled) {
+  color: var(--text-primary);
+  font-weight: bold;
+}
+
+.pagination-button:disabled {
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+.pagination-indicator {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
