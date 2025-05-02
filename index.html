@@ -124,9 +124,29 @@
         </div>
       </div>
 
-      <div
+      <!-- rooms control -->
+      <div class="rooms-panel">
+        <!-- Turn all A/C -->
+        <label class="ac-toggle-switch">
+          <input type="checkbox" id="reset-ac-btn">
+          <span class="slider"></span>
+          <!-- <span class="label-text" id="ac-toggle-label">Turn All A/C On</span> -->
+        </label>
+        <div
         class="container rooms-control animate__animated animate__fadeIn"
       ></div>
+      <div id="pagination" class="pagination-container">
+        <button id="prevPage" class="pagination-button">&lt; Prev</button>
+        <span id="pageIndicator" class="pagination-indicator">Page 1 of 1</span>
+        <button id="nextPage" class="pagination-button">Next &gt;</button>
+      </div>
+    </div>
+    
+    
+      </div>
+      
+      
+      
     </div>
     <div id="toast" class="toast hidden">Presets saved successfully!</div>
     <div id="toaster" class="toast">Room added successfully!</div>

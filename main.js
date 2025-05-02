@@ -4,153 +4,88 @@ let rooms = [];
 loadRoomsFromLocalStorage();
 function loadRoomsFromLocalStorage() {
   const storedRooms = localStorage.getItem('rooms');
-  if (storedRooms) { rooms = JSON.parse(storedRooms).map(room => ({
-    ...room,
-    setCurrTemp(temp) { this.currTemp = temp; },
-    setColdPreset(temp) { this.coldPreset = temp; },
-    setWarmPreset(temp) { this.warmPreset = temp; },
-    increaseTemp() { this.currTemp++; },
-    decreaseTemp() { this.currTemp--; },
-    toggleAircon() { this.airConditionerOn = !this.airConditionerOn; }
-  }));
-} else {
-rooms = [
-  {
-    name: "Living Room",
-    currTemp: 32,
-    coldPreset: 20,
-    warmPreset: 32,
-    image: "./assets/living-room.jpg",
-    airConditionerOn: false,
-    startTime: '16:30',
-    endTime: '20:00',
-
-    setCurrTemp(temp) {
-      this.currTemp = temp;
-    },
-
-    setColdPreset(newCold) {
-      this.coldPreset = newCold;
-    },
-
-    setWarmPreset(newWarm) {
-      this.warmPreset = newWarm;
-    },
-
-    decreaseTemp() {
-      this.currTemp--;
-    },
-
-    increaseTemp() {
-      this.currTemp++;
-    },
-    toggleAircon() {
-      this.airConditionerOn = !this.airConditionerOn;
-    },
-  },
-  {
-    name: "Kitchen",
-    currTemp: 29,
-    coldPreset: 20,
-    warmPreset: 32,
-    image: "./assets/kitchen.jpg",
-    airConditionerOn: false,
-    startTime: '16:30',
-    endTime: '20:00',
-
-    setCurrTemp(temp) {
-      this.currTemp = temp;
-    },
-
-    setColdPreset(newCold) {
-      this.coldPreset = newCold;
-    },
-
-    setWarmPreset(newWarm) {
-      this.warmPreset = newWarm;
-    },
-
-    decreaseTemp() {
-      this.currTemp--;
-    },
-
-    increaseTemp() {
-      this.currTemp++;
-    },
-    toggleAircon() {
-      this.airConditionerOn = !this.airConditionerOn;
-    },
-  },
-  {
-    name: "Bathroom",
-    currTemp: 30,
-    coldPreset: 20,
-    warmPreset: 32,
-    image: "./assets/bathroom.jpg",
-    airConditionerOn: false,
-    startTime: '16:30',
-    endTime: '20:00',
-
-    setCurrTemp(temp) {
-      this.currTemp = temp;
-    },
-
-    setColdPreset(newCold) {
-      this.coldPreset = newCold;
-    },
-
-    setWarmPreset(newWarm) {
-      this.warmPreset = newWarm;
-    },
-
-    decreaseTemp() {
-      this.currTemp--;
-    },
-
-    increaseTemp() {
-      this.currTemp++;
-    },
-    toggleAircon() {
-      this.airConditionerOn = !this.airConditionerOn;
-    },
-  },
-  {
-    name: "Bedroom",
-    currTemp: 31,
-    coldPreset: 20,
-    warmPreset: 32,
-    image: "./assets/bedroom.jpg",
-    airConditionerOn: false,
-    startTime: '16:30',
-    endTime: '20:00',
-
-    setCurrTemp(temp) {
-      this.currTemp = temp;
-    },
-
-    setColdPreset(newCold) {
-      this.coldPreset = newCold;
-    },
-
-    setWarmPreset(newWarm) {
-      this.warmPreset = newWarm;
-    },
-
-    decreaseTemp() {
-      this.currTemp--;
-    },
-
-    increaseTemp() {
-      this.currTemp++;
-    },
-    toggleAircon() {
-      this.airConditionerOn = !this.airConditionerOn;
-    },
+  if (storedRooms) {
+    rooms = JSON.parse(storedRooms).map(room => ({
+      ...room,
+      setCurrTemp(temp) { this.currTemp = temp; },
+      setColdPreset(newCold) { this.coldPreset = newCold; },
+      setWarmPreset(newWarm) { this.warmPreset = newWarm; },
+      increaseTemp() { this.currTemp++; },
+      decreaseTemp() { this.currTemp--; },
+      toggleAircon() { this.airConditionerOn = !this.airConditionerOn; }
+    }));
+  } else {
+    rooms = [
+      // Default rooms
+      {
+        name: "Living Room",
+        currTemp: 32,
+        coldPreset: 20,
+        warmPreset: 32,
+        image: "./assets/living-room.jpg",
+        airConditionerOn: false,
+        startTime: '16:30',
+        endTime: '20:00',
+        setCurrTemp(temp) { this.currTemp = temp; },
+        setColdPreset(newCold) { this.coldPreset = newCold; },
+        setWarmPreset(newWarm) { this.warmPreset = newWarm; },
+        decreaseTemp() { this.currTemp--; },
+        increaseTemp() { this.currTemp++; },
+        toggleAircon() { this.airConditionerOn = !this.airConditionerOn; }
+      },
+      {
+        name: "Kitchen",
+        currTemp: 29,
+        coldPreset: 20,
+        warmPreset: 32,
+        image: "./assets/kitchen.jpg",
+        airConditionerOn: false,
+        startTime: '16:30',
+        endTime: '20:00',
+        setCurrTemp(temp) { this.currTemp = temp; },
+        setColdPreset(newCold) { this.coldPreset = newCold; },
+        setWarmPreset(newWarm) { this.warmPreset = newWarm; },
+        decreaseTemp() { this.currTemp--; },
+        increaseTemp() { this.currTemp++; },
+        toggleAircon() { this.airConditionerOn = !this.airConditionerOn; }
+      },
+      {
+        name: "Bathroom",
+        currTemp: 30,
+        coldPreset: 20,
+        warmPreset: 32,
+        image: "./assets/bathroom.jpg",
+        airConditionerOn: false,
+        startTime: '16:30',
+        endTime: '20:00',
+        setCurrTemp(temp) { this.currTemp = temp; },
+        setColdPreset(newCold) { this.coldPreset = newCold; },
+        setWarmPreset(newWarm) { this.warmPreset = newWarm; },
+        decreaseTemp() { this.currTemp--; },
+        increaseTemp() { this.currTemp++; },
+        toggleAircon() { this.airConditionerOn = !this.airConditionerOn; }
+      },
+      {
+        name: "Bedroom",
+        currTemp: 31,
+        coldPreset: 20,
+        warmPreset: 32,
+        image: "./assets/bedroom.jpg",
+        airConditionerOn: false,
+        startTime: '16:30',
+        endTime: '20:00',
+        setCurrTemp(temp) { this.currTemp = temp; },
+        setColdPreset(newCold) { this.coldPreset = newCold; },
+        setWarmPreset(newWarm) { this.warmPreset = newWarm; },
+        decreaseTemp() { this.currTemp--; },
+        increaseTemp() { this.currTemp++; },
+        toggleAircon() { this.airConditionerOn = !this.airConditionerOn; }
+      }
+    ];
+    saveRoomsToLocalStorage(); // Save the default rooms to localStorage if no rooms exist
   }
-];
-saveRoomsToLocalStorage();
 }
-}
+
 loadRoomsFromLocalStorage(); // Load rooms from local storage on page load
 
 // Save rooms to local storage
@@ -238,6 +173,13 @@ function initializeRoomSelection() {
 }
 
 function updateRoomUI(room) {
+  document.querySelectorAll(".room-control").forEach(card => {
+    card.classList.remove("selected");
+    if (card.id === room.name) {
+      card.classList.add("selected");
+    }
+  });
+
   // Update all temperature displays
   currentTempDisplay.textContent = `${room.currTemp}°`;
   document.querySelector(".currentTemp").textContent = `${room.currTemp}°`;
@@ -250,8 +192,23 @@ function updateRoomUI(room) {
 
 roomSelect.addEventListener("change", function() {
   selectedRoom = rooms.find(room => room.name === this.value);
-  if (selectedRoom) updateRoomUI(selectedRoom);
+  
+  // Update the current page based on the selected room's index
+  const roomIndex = rooms.indexOf(selectedRoom);
+  const totalPages = Math.ceil(rooms.length / roomsPerPage);
+  const newPage = Math.ceil((roomIndex + 1) / roomsPerPage); // Calculate the page the room is on
+
+  // Update the page and re-render the rooms
+  if (newPage !== currentPage) {
+    currentPage = newPage;
+    generateRooms(); // Re-render rooms with updated page
+  }
+
+  if (selectedRoom) {
+    updateRoomUI(selectedRoom); // Update room UI (temperature, overlay, etc.)
+  }
 });
+
 
 // Temperature Controls
 document.getElementById("increase").addEventListener("click", () => {
@@ -259,9 +216,10 @@ document.getElementById("increase").addEventListener("click", () => {
     selectedRoom.increaseTemp();
     updateRoomUI(selectedRoom);
     generateRooms();
-    saveRoomsToLocalStorage(); // 
+    saveRoomsToLocalStorage();
   }
 });
+
 
 
 document.getElementById("reduce").addEventListener("click", () => {
@@ -288,13 +246,6 @@ document.querySelector(".default-settings").addEventListener("click", (e) => {
     saveRoomsToLocalStorage(); // ✅ Save after preset change
   }
 });
-
-
-  // if (e.target.closest("button")?.id === "warm") {
-  //   selectedRoom.setCurrTemp(selectedRoom.warmPreset);
-  //   updateRoomUI(selectedRoom);
-  //   generateRooms();
-  // };
 
 // Preset Controls
 const inputsDiv = document.querySelector(".inputs");
@@ -364,17 +315,28 @@ document.getElementById("save").addEventListener("click", () => {
   
 });
 
+let currentPage = 1;
+const roomsPerPage = 4;
+
 
 // Rooms Control Panel
+// Rooms Control Panel
 function generateRooms() {
+  const totalPages = Math.ceil(rooms.length / roomsPerPage);
   const roomsControlContainer = document.querySelector(".rooms-control");
-  roomsControlContainer.innerHTML = rooms.map(room => `
+  const start = (currentPage - 1) * roomsPerPage;
+  const end = start + roomsPerPage;
+  const paginatedRooms = rooms.slice(start, end);
+
+  roomsControlContainer.innerHTML = paginatedRooms.map(room => `
     <div class="room-control" id="${room.name}">
       <div class="top">
         <h3 class="room-name">${room.name} - ${room.currTemp}°</h3>
         <button class="switch">
           <ion-icon name="power-outline" class="${room.airConditionerOn ? "powerOn" : ""}"></ion-icon>
         </button>
+        <!-- Disable delete button for default rooms -->
+        <button class="delete-btn" ${defaultRooms.includes(room.name) ? 'disabled' : ''}>Delete</button>
       </div>
       <div class="time-display">
         <span class="time">${room.startTime}</span>
@@ -382,12 +344,120 @@ function generateRooms() {
         <span class="time">${room.endTime}</span>
       </div>
       <span class="room-status" style="display: ${room.airConditionerOn ? "block" : "none"}">
-  ${room.currTemp <= 24 ? "Cooling room to: " : "Warming room to: "}${room.currTemp}°
-</span>
-
+        ${room.currTemp <= 24 ? "Cooling room to: " : "Warming room to: "}${room.currTemp}°
+      </span>
     </div>
   `).join('');
+
+  updatePaginationControls(totalPages);
 }
+
+
+const defaultRooms = [
+  { name: 'Living', temperature: 22, unit: '°C' },
+  { name: 'Bedroom', temperature: 20, unit: '°C' },
+  { name: 'Bathroom', temperature: 24, unit: '°C' },
+  { name: 'Kitchen', temperature: 15, unit: '°C' },
+];
+
+// Load rooms from localStorage, but include default rooms if none exist
+function loadRooms() {
+  const storedRooms = JSON.parse(localStorage.getItem('rooms'));
+  if (storedRooms && storedRooms.length > 0) {
+    rooms = storedRooms;
+  } else {
+    rooms = [...defaultRooms];  // Use the default rooms if no rooms are saved
+  }
+  generateRooms();
+  initializeRoomSelection();
+}
+
+// Deleting a room card
+document.querySelector(".rooms-control").addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-btn")) {
+    const roomElement = e.target.closest(".room-control");
+    const roomName = roomElement.id;
+    deleteRoom(roomName); // Call deleteRoom on button click
+  }
+});
+
+// Delete room logic
+function deleteRoom(roomName) {
+  // Prevent deleting default rooms
+  if (defaultRooms.some(room => room.name === roomName)) {
+    showToast(`${roomName} cannot be deleted because it is a default room.`);
+    return; // Do not delete default rooms
+  }
+
+  const roomIndex = rooms.findIndex(room => room.name === roomName);
+  
+  if (roomIndex !== -1) {
+    // Remove the room from the rooms array
+    rooms.splice(roomIndex, 1);
+
+    // Save to localStorage after deletion
+    saveRoomsToLocalStorage();
+
+    // Re-render rooms after deletion
+    generateRooms();
+    initializeRoomSelection();  // Re-initialize the dropdown list of rooms
+
+    // Select the previous room or the first room if there is no previous one
+    let previousRoom = roomIndex > 0 ? rooms[roomIndex - 1] : rooms[0];
+    selectedRoom = previousRoom;
+    roomSelect.value = selectedRoom.name;
+    updateRoomUI(selectedRoom);
+
+    // Show success toast for deletion
+    showToast(`${roomName} successfully removed!`);
+  }
+}
+
+// Show toast function to show success or error messages
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.remove("hidden");
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.classList.add("hidden"), 400);
+  }, 3000); 
+}
+
+
+function updatePaginationControls(totalPages) {
+  const pageIndicator = document.querySelector("#pageIndicator");
+  if (pageIndicator) {
+    pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+  }
+
+  const prevBtn = document.querySelector("#prevPage");
+  const nextBtn = document.querySelector("#nextPage");
+
+  if (prevBtn && nextBtn) {
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+  }
+}
+
+
+
+const resetAllACBtn = document.getElementById("reset-ac-btn");
+const acToggleLabel = document.getElementById("ac-toggle-label");
+
+resetAllACBtn.addEventListener("change", () => {
+  const newState = resetAllACBtn.checked;
+
+  // Toggle all A/Cs
+  rooms.forEach(room => {
+    room.airConditionerOn = newState;
+  });
+
+  generateRooms();
+});
+
 
 document.querySelector(".rooms-control").addEventListener("click", (e) => {
   if (e.target.closest(".switch")) {
@@ -431,7 +501,6 @@ cancelRoomBtn.addEventListener("click", () => {
 
 saveRoomBtn.addEventListener("click", () => {
   const nameInput = document.getElementById("newRoomName");
-  const imageInput = document.getElementById("newRoomImage");
   const errorMessage = document.getElementById("roomErrorMessage");
   const name = nameInput.value.trim();
   const imageURL = "./assets/roomImage.webp"; 
@@ -453,10 +522,10 @@ saveRoomBtn.addEventListener("click", () => {
     errorMessage.textContent = "Room with that name already exists.";
     errorMessage.style.display = "block";
     nameInput.value = "";
-    // imageInput.value = "";
     return;
   }
 
+  // Create the new room object
   const newRoom = {
     name,
     currTemp: 25,
@@ -474,18 +543,44 @@ saveRoomBtn.addEventListener("click", () => {
     toggleAircon() { this.airConditionerOn = !this.airConditionerOn; }
   };
 
+  // Add the new room to the rooms array
   rooms.push(newRoom);
-  saveRoomsToLocalStorage();
-  selectedRoom = newRoom;
-  nameInput.value = "";
-  addRoomModal.classList.add("hidden");
 
-  showToast("Room added successfully!");
-  initializeRoomSelection();
-  updateRoomUI(selectedRoom); 
-  generateRooms(); 
+  // Save rooms to local storage after adding a new room
+  saveRoomsToLocalStorage();
+
+  // Update the page to reflect the new room (both the dropdown and the room display)
+  currentPage = Math.ceil(rooms.length / roomsPerPage);
+  generateRooms();
+  initializeRoomSelection(); // This will update the dropdown to include the new room
+  roomSelect.value = newRoom.name; // Select the new room in the dropdown
+  updateRoomUI(newRoom); // Update the main room UI with the new room's details
+
+  // Show success toast
+  showToast("Room added successfully");
+
+  // Reset the form and close the modal
+  document.getElementById("addRoomModal").classList.add("hidden");
+  nameInput.value = "";
+  errorMessage.style.display = "none"; // Hide error message if any
 });
 
+
+
+document.getElementById("prevPage").addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    generateRooms();
+  }
+});
+
+document.getElementById("nextPage").addEventListener("click", () => {
+  const totalPages = Math.ceil(rooms.length / roomsPerPage);
+  if (currentPage < totalPages) {
+    currentPage++;
+    generateRooms();
+  }
+});
 
 
 

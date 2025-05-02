@@ -32,7 +32,7 @@ body {
 }
 
 .container {
-  padding: 30px;
+  padding: 30px 30px 0 30px;
   background-color: #ffffff;
   border-radius: 8px;
   cursor: pointer;
@@ -290,7 +290,6 @@ svg.point {
   height: 200px;
   margin: 0 0 30px 0;
   position: relative;
-  /* background-image: url("./assets/living-room.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -514,4 +513,135 @@ span.room-status {
 .toast.show {
   visibility: visible;
   opacity: 1;
+}
+
+.rooms-panel {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: end;
+  padding-top: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.ac-toggle-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  margin-right: 30px;
+}
+
+.ac-toggle-switch input[type="checkbox"] {
+  display: none;
+}
+
+.ac-toggle-switch .slider {
+  position: relative;
+  width: 50px;
+  height: 24px;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: background-color 0.3s;
+}
+
+.ac-toggle-switch .slider::before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  top: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.ac-toggle-switch input[type="checkbox"]:checked + .slider {
+  background-color: var(--warm-red);
+}
+
+.ac-toggle-switch input[type="checkbox"]:checked + .slider::before {
+  transform: translateX(26px);
+}
+
+.ac-toggle-switch .label-text {
+  font-size: 1rem;
+}
+
+.room-control.selected {
+  border: 1px solid #007BFF;
+  background-color: rgba(0, 123, 255, 0.1);
+  border-radius: 8px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 12px auto 18px auto; 
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.pagination-button {
+  border: none;
+  color: black;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.pagination-button:hover:not(:disabled) {
+  color: var(--text-primary);
+  font-weight: bold;
+}
+
+.pagination-button:disabled {
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+.pagination-indicator {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Room card base styling */
+.room-control {
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+/* Styling for the hover effect */
+.room-control:hover {
+  background-color: rgba(240, 128, 128, 0.697);
+  border-radius: 10px;
+}
+
+/* Hide the delete button by default */
+.delete-btn {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  font-size: 24px;
+  color: white;
+}
+
+/* Show the delete button only on hover */
+.room-control:hover .delete-btn {
+  display: block;
 }
