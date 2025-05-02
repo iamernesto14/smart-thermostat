@@ -7,6 +7,10 @@ function loadRoomsFromLocalStorage() {
   if (storedRooms) {
     rooms = JSON.parse(storedRooms).map(room => ({
       ...room,
+      schedule: room.schedule || {  // ← Fallback if schedule doesn't exist
+        startTime: '16:30',
+        endTime: '20:00'
+      },
       setCurrTemp(temp) { this.currTemp = temp; },
       setColdPreset(newCold) { this.coldPreset = newCold; },
       setWarmPreset(newWarm) { this.warmPreset = newWarm; },
@@ -24,8 +28,10 @@ function loadRoomsFromLocalStorage() {
         warmPreset: 32,
         image: "./assets/living-room.jpg",
         airConditionerOn: false,
-        startTime: '16:30',
-        endTime: '20:00',
+        schedule: {
+          startTime: '16:30',
+          endTime: '20:00',
+        },
         setCurrTemp(temp) { this.currTemp = temp; },
         setColdPreset(newCold) { this.coldPreset = newCold; },
         setWarmPreset(newWarm) { this.warmPreset = newWarm; },
@@ -40,8 +46,10 @@ function loadRoomsFromLocalStorage() {
         warmPreset: 32,
         image: "./assets/kitchen.jpg",
         airConditionerOn: false,
-        startTime: '16:30',
-        endTime: '20:00',
+        schedule: {
+          startTime: '16:30',
+          endTime: '20:00'
+        },
         setCurrTemp(temp) { this.currTemp = temp; },
         setColdPreset(newCold) { this.coldPreset = newCold; },
         setWarmPreset(newWarm) { this.warmPreset = newWarm; },
@@ -56,8 +64,10 @@ function loadRoomsFromLocalStorage() {
         warmPreset: 32,
         image: "./assets/bathroom.jpg",
         airConditionerOn: false,
-        startTime: '16:30',
-        endTime: '20:00',
+        schedule: {
+          startTime: '16:30',
+          endTime: '20:00'
+        },
         setCurrTemp(temp) { this.currTemp = temp; },
         setColdPreset(newCold) { this.coldPreset = newCold; },
         setWarmPreset(newWarm) { this.warmPreset = newWarm; },
@@ -72,8 +82,10 @@ function loadRoomsFromLocalStorage() {
         warmPreset: 32,
         image: "./assets/bedroom.jpg",
         airConditionerOn: false,
-        startTime: '16:30',
-        endTime: '20:00',
+        schedule: {
+          startTime: '16:30',
+          endTime: '20:00'
+        },
         setCurrTemp(temp) { this.currTemp = temp; },
         setColdPreset(newCold) { this.coldPreset = newCold; },
         setWarmPreset(newWarm) { this.warmPreset = newWarm; },
@@ -201,11 +213,11 @@ roomSelect.addEventListener("change", function() {
   // Update the page and re-render the rooms
   if (newPage !== currentPage) {
     currentPage = newPage;
-    generateRooms(); // Re-render rooms with updated page
+    generateRooms(); 
   }
 
   if (selectedRoom) {
-    updateRoomUI(selectedRoom); // Update room UI (temperature, overlay, etc.)
+    updateRoomUI(selectedRoom);
   }
 });
 
@@ -335,20 +347,17 @@ function generateRooms() {
         <button class="switch">
           <ion-icon name="power-outline" class="${room.airConditionerOn ? "powerOn" : ""}"></ion-icon>
         </button>
-        <!-- Disable delete button for default rooms -->
-        <button class="delete-btn" ${defaultRooms.includes(room.name) ? 'disabled' : ''}>Delete</button>
       </div>
       <div class="time-display">
-        <span class="time">${room.startTime}</span>
+        <span class="time">${room.schedule.startTime}</span>
         <div class="bars">${Array(32).fill('<span class="bar"></span>').join('')}</div>
-        <span class="time">${room.endTime}</span>
+        <span class="time">${room.schedule.endTime}</span>
       </div>
       <span class="room-status" style="display: ${room.airConditionerOn ? "block" : "none"}">
         ${room.currTemp <= 24 ? "Cooling room to: " : "Warming room to: "}${room.currTemp}°
       </span>
     </div>
   `).join('');
-
   updatePaginationControls(totalPages);
 }
 
@@ -418,18 +427,116 @@ resetAllACBtn.addEventListener("change", () => {
   generateRooms();
 });
 
+let currentlyEditingRoom = null;
 
 document.querySelector(".rooms-control").addEventListener("click", (e) => {
   if (e.target.closest(".switch")) {
-    const room = rooms.find(r => r.name === e.target.closest(".room-control").id);
-    room.toggleAircon();
-    generateRooms();
+    const roomElement = e.target.closest(".room-control");
+    const room = rooms.find(r => r.name === roomElement.id);
+    
+    if (!room.airConditionerOn) {
+      // When turning ON, show the schedule modal
+      currentlyEditingRoom = room;
+      showScheduleModal(room);
+    } else {
+      // When turning OFF, just toggle
+      room.toggleAircon();
+      generateRooms();
+      saveRoomsToLocalStorage();
+    }
   }
-  else if (e.target.classList.contains("room-name")) {
-    selectedRoom = rooms.find(r => r.name === e.target.closest(".room-control").id);
-    roomSelect.value = selectedRoom.name;
-    updateRoomUI(selectedRoom);
+});
+// Fix the modal ID in the showScheduleModal function
+function showScheduleModal(room) {
+  const modal = document.getElementById('scheduleModal'); // Fixed ID (no 'e')
+  if (!modal) {
+    console.error("Modal not found!");
+    return;
   }
+
+  const startInput = document.getElementById('startTimeInput');
+  const endInput = document.getElementById('endTimeInput');
+  
+  if (startInput && endInput) {
+    startInput.value = room.schedule.startTime;
+    endInput.value = room.schedule.endTime;
+  }
+  
+  modal.classList.remove('hidden');
+}
+
+// Fix the close button selector
+document.querySelector('.close-modal').addEventListener('click', () => { // Fixed class name
+  document.getElementById('scheduleModal').classList.add('hidden');
+});
+
+// Update the confirm button handler
+document.getElementById('confirmSchedule').addEventListener('click', () => {
+  const modal = document.getElementById('scheduleModal'); // Fixed ID
+  const startInput = document.getElementById('startTimeInput');
+  const endInput = document.getElementById('endTimeInput');
+  
+  if (!startInput || !endInput || !currentlyEditingRoom) return;
+  
+  // Validate times
+  if (startInput.value >= endInput.value) {
+    alert('End time must be after start time');
+    return;
+  }
+  
+  // Update room
+  currentlyEditingRoom.schedule = {
+    startTime: startInput.value,
+    endTime: endInput.value
+  };
+  currentlyEditingRoom.airConditionerOn = true;
+  
+  // Update UI
+  generateRooms();
+  saveRoomsToLocalStorage();
+  modal.classList.add('hidden');
+  showToast(`Schedule set for ${currentlyEditingRoom.name}`);
+});
+
+// Close modal when clicking X
+document.querySelector('.close-modal').addEventListener('click', () => {
+  document.getElementById('scheduleModal').classList.add('hidden');
+});
+
+// Cancel button
+document.getElementById('cancelSchedule').addEventListener('click', () => {
+  document.getElementById('scheduleModal').classList.add('hidden');
+});
+
+// Confirm button
+document.getElementById('confirmSchedule').addEventListener('click', () => {
+  const modal = document.getElementById('scheduleModal');
+  const startInput = document.getElementById('startTimeInput');
+  const endInput = document.getElementById('endTimeInput');
+  
+  // Validate times
+  if (startInput.value >= endInput.value) {
+    alert('End time must be after start time');
+    return;
+  }
+  
+  // Update room schedule and turn on AC
+  currentlyEditingRoom.schedule = {
+    startTime: startInput.value,
+    endTime: endInput.value
+  };
+  
+  currentlyEditingRoom.airConditionerOn = true;
+  
+  // Update UI and save
+  generateRooms();
+  saveRoomsToLocalStorage();
+  
+  // Close modal
+  modal.classList.add('hidden');
+  
+  // Show confirmation
+  showToast(`Schedule set for ${currentlyEditingRoom.name}`);
 });
 
 
@@ -512,7 +619,7 @@ saveRoomBtn.addEventListener("click", () => {
   // Update the page to reflect the new room (both the dropdown and the room display)
   currentPage = Math.ceil(rooms.length / roomsPerPage);
   generateRooms();
-  initializeRoomSelection(); // This will update the dropdown to include the new room
+  initializeRoomSelection(); 
   roomSelect.value = newRoom.name; // Select the new room in the dropdown
   updateRoomUI(newRoom); // Update the main room UI with the new room's details
 
