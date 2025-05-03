@@ -32,7 +32,7 @@ body {
 }
 
 .container {
-  padding: 30px;
+  padding: 30px 30px 0 30px;
   background-color: #ffffff;
   border-radius: 8px;
   cursor: pointer;
@@ -54,7 +54,7 @@ body {
 .top-content {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
   margin: 0 0 30px 0;
 }
 
@@ -196,6 +196,18 @@ svg.point {
   cursor: pointer;
 }
 
+.input-error {
+  border: 1px solid red;
+}
+
+#roomErrorMessage {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+  display: none;
+}
+
+
 .error {
   color: #ec6062;
   text-align: center;
@@ -278,7 +290,6 @@ svg.point {
   height: 200px;
   margin: 0 0 30px 0;
   position: relative;
-  /* background-image: url("./assets/living-room.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -364,20 +375,35 @@ svg.point {
 .bars .bar:nth-child(n + 1):nth-child(-n + 15) {
   background-color: #ffae33;
 }
-
+/* 
 .time {
-  padding-left: 10px; /* Add spacing between times */
+  padding-left: 10px; 
+} */
+
+@media only screen and (max-width: 1020px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @media only screen and (max-width: 470px) {
   .container {
     width: 360px;
   }
+
+  .bars {
+    gap: 4px;
+  }
 }
 
 @media only screen and (max-width: 380px) {
   .container {
     width: 320px;
+  }
+
+  .bars {
+    gap: 3px;
   }
 }
 
@@ -387,7 +413,231 @@ svg.point {
 
 span.room-status {
   display: block;
-  /* border: solid 1px pink; */
   margin: 20px 0 0 0;
   color: #7c7c83;
 }
+
+.toast {
+  position: fixed;
+  bottom: -100px; /* Hidden by default */
+  right: 30px;
+  background-color: var(--cool-blue);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-weight: bold;
+  opacity: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  transition: bottom 0.4s ease, opacity 0.4s ease;
+}
+
+#addRoomBtn {
+  background-color: var(--cool-blue);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: semibold;
+  transition: background-color 0.2s ease-in-out;
+}
+
+#addRoomBtn:hover {
+  background-color: #6b7ff0;
+}
+
+.toast.show {
+  bottom: 30px;
+  opacity: 0.95;
+}
+
+.toast.hidden {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 10000;
+}
+.modal.hidden {
+  display: none;
+}
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  text-align: center;
+}
+.modal-content input {
+  display: block;
+  margin: 10px auto;
+  padding: 8px;
+  width: 250px;
+}
+.modal-content button {
+  margin: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: #4458c3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.room-status-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-top: 8px;
+}
+
+.remove-room {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.remove-room:hover {
+  background-color: #c0392b;
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.rooms-panel {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: end;
+  padding-top: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.ac-toggle-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  margin-right: 30px;
+}
+
+.ac-toggle-switch input[type="checkbox"] {
+  display: none;
+}
+
+.ac-toggle-switch .slider {
+  position: relative;
+  width: 50px;
+  height: 24px;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: background-color 0.3s;
+}
+
+.ac-toggle-switch .slider::before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  top: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.ac-toggle-switch input[type="checkbox"]:checked + .slider {
+  background-color: var(--warm-red);
+}
+
+.ac-toggle-switch input[type="checkbox"]:checked + .slider::before {
+  transform: translateX(26px);
+}
+
+.ac-toggle-switch .label-text {
+  font-size: 1rem;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 12px auto 18px auto; 
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.pagination-button {
+  border: none;
+  color: black;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.pagination-button:hover:not(:disabled) {
+  color: var(--text-primary);
+  font-weight: bold;
+}
+
+.pagination-button:disabled {
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+.pagination-indicator {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #2a2a2e;
+  padding: 10px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 350px;
+  color: #d9d9d9;
+}
+
+.close-modal {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+

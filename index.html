@@ -30,9 +30,13 @@
     <div class="main-container">
       <div class="container animate__animated animate__fadeInUp">
         <div class="top-content">
-          <h1 class="logo">Thermostat</h1>
+          <div>
+            <h1 class="logo">Thermostat</h1>
+          <button id="addRoomBtn">Add Room</button>
+          </div>
           <select id="rooms"></select>
         </div>
+
         <!-- Interior card -->
         <div class="room">
           <div class="text">
@@ -40,6 +44,7 @@
             <p class="currentTemp">27°</p>
           </div>
         </div>
+        
         <div class="main-content">
           <div class="temperature">
             <svg
@@ -114,15 +119,73 @@
             <button id="save">Save</button>
             <button id="close"><ion-icon name="close"></ion-icon></button>
 
-            <span class="error"></span>
+            
           </div>
+          <span class="error"></span>
         </div>
       </div>
 
-      <div
+      <!-- rooms control -->
+      <div class="rooms-panel">
+        <!-- Turn all A/C -->
+        <label class="ac-toggle-switch">
+          <input type="checkbox" id="reset-ac-btn">
+          <span class="slider"></span>
+          <!-- <span class="label-text" id="ac-toggle-label">Turn All A/C On</span> -->
+        </label>
+        <div
         class="container rooms-control animate__animated animate__fadeIn"
       ></div>
+      <div id="pagination" class="pagination-container">
+        <button id="prevPage" class="pagination-button">&lt; Prev</button>
+        <span id="pageIndicator" class="pagination-indicator">Page 1 of 1</span>
+        <button id="nextPage" class="pagination-button">Next &gt;</button>
+      </div>
     </div>
+    
+    
+      </div>
+      
+      
+      
+    </div>
+    <div id="toast" class="toast hidden">Presets saved successfully!</div>
+    <div id="toaster" class="toast">Room added successfully!</div>
+
+    <div class="modal hidden" id="addRoomModal">
+      <div class="modal-content">
+        <h2>Add New Room</h2>
+        <input type="text" id="newRoomName" placeholder="Room name" />
+        <p id="roomErrorMessage"></p>
+        <button id="saveRoomBtn">Add Room</button>
+        <button id="cancelRoomBtn">Cancel</button>
+      </div>
+    </div>
+
+    <div id="scheduleModal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Set A/C Schedule</h3>
+        
+        <div class="time-selection">
+          <div class="time-input">
+            <label>Start Time:</label>
+            <input type="time" id="startTimeInput" value="16:30">
+          </div>
+          
+          <div class="time-input">
+            <label>End Time:</label>
+            <input type="time" id="endTimeInput" value="20:00">
+          </div>
+        </div>
+        
+        <div class="modal-actions">
+          <button id="confirmSchedule">Save Schedule</button>
+          <button id="cancelSchedule">Cancel</button>
+        </div>
+      </div>
+    </div>
+    
 
     <!-- Ionicons -->
     <script
