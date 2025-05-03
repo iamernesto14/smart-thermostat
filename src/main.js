@@ -1,6 +1,3 @@
-// ==========================================
-// Room Management System
-// ==========================================
 
 // Global state
 let rooms = [];
@@ -20,17 +17,14 @@ const DEFAULT_START_TIME = '16:30';
 const DEFAULT_END_TIME = '20:00';
 
 const warmOverlay = [
-  'rgba(242, 39, 42, 0.31)', // top
-  'rgba(248, 210, 211, 0.13)' // bottom
+  'rgba(242, 39, 42, 0.31)', 
+  'rgba(248, 210, 211, 0.13)' 
 ];
 const coolOverlay = [
-  'rgba(141, 159, 247, 0.31)', // top
-  'rgba(194, 197, 215, 0.1)'   // bottom
+  'rgba(141, 159, 247, 0.31)', 
+  'rgba(194, 197, 215, 0.1)'   
 ];
 
-// ==========================================
-// Helper Functions
-// ==========================================
 
 // Convert time string to decimal for percentage calculations
 function parseTime(timeStr) {
@@ -732,5 +726,4 @@ function initializeApp() {
   if (nextPageBtn) nextPageBtn.addEventListener("click", () => handlePaginationClick('next'));
 }
 
-// Start the application
 document.addEventListener('DOMContentLoaded', initializeApp);

@@ -1,31 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Manrope Font Embeded -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
     <!-- Animate CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.e308ff8e.css">
 
     <!-- JS -->
-    <script src="./src/main.js" type="module" defer></script>
+    <script src="/main.1e43358e.js" type="module" defer=""></script>
 
     <title>Smart Home | Thermostat Widget</title>
-  </head>
+  <script src="/style.e308ff8e.js"></script></head>
   <body>
     <div class="main-container">
       <div class="container animate__animated animate__fadeInUp">
@@ -47,23 +41,9 @@
         
         <div class="main-content">
           <div class="temperature">
-            <svg
-              class="point"
-              width="44"
-              height="44"
-              viewBox="0 0 44 44"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="22"
-                cy="22"
-                r="19.5"
-                fill="#515155"
-                stroke="white"
-                stroke-width="5"
-              />
-              <circle cx="21.5" cy="21.5" r="9.5" fill="#FFD7A8" />
+            <svg class="point" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="22" cy="22" r="19.5" fill="#515155" stroke="white" stroke-width="5"></circle>
+              <circle cx="21.5" cy="21.5" r="9.5" fill="#FFD7A8"></circle>
             </svg>
 
             <div class="info">
@@ -102,20 +82,8 @@
           </div>
 
           <div class="inputs hidden">
-            <input
-              id="coolInput"
-              type="number"
-              min="10"
-              max="22"
-              placeholder="Cool"
-            />
-            <input
-              id="warmInput"
-              type="number"
-              min="22"
-              max="32"
-              placeholder="Warm"
-            />
+            <input id="coolInput" type="number" min="10" max="22" placeholder="Cool">
+            <input id="warmInput" type="number" min="22" max="32" placeholder="Warm">
             <button id="save">Save</button>
             <button id="close"><ion-icon name="close"></ion-icon></button>
 
@@ -133,9 +101,7 @@
           <span class="slider"></span>
           <!-- <span class="label-text" id="ac-toggle-label">Turn All A/C On</span> -->
         </label>
-        <div
-        class="container rooms-control animate__animated animate__fadeIn"
-      ></div>
+        <div class="container rooms-control animate__animated animate__fadeIn"></div>
       <div id="pagination" class="pagination-container">
         <button id="prevPage" class="pagination-button">&lt; Prev</button>
         <span id="pageIndicator" class="pagination-indicator">Page 1 of 1</span>
@@ -148,14 +114,14 @@
       
       
       
-    </div>
+    
     <div id="toast" class="toast hidden">Presets saved successfully!</div>
     <div id="toaster" class="toast">Room added successfully!</div>
 
     <div class="modal hidden" id="addRoomModal">
       <div class="modal-content">
         <h2>Add New Room</h2>
-        <input type="text" id="newRoomName" placeholder="Room name" />
+        <input type="text" id="newRoomName" placeholder="Room name">
         <p id="roomErrorMessage"></p>
         <button id="saveRoomBtn">Add Room</button>
         <button id="cancelRoomBtn">Cancel</button>
@@ -188,13 +154,7 @@
     
 
     <!-- Ionicons -->
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   </body>
 </html>
