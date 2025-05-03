@@ -44,6 +44,7 @@
             <p class="currentTemp">27°</p>
           </div>
         </div>
+        
         <div class="main-content">
           <div class="temperature">
             <svg
@@ -158,6 +159,30 @@
         <p id="roomErrorMessage"></p>
         <button id="saveRoomBtn">Add Room</button>
         <button id="cancelRoomBtn">Cancel</button>
+      </div>
+    </div>
+
+    <div id="scheduleModal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Set A/C Schedule</h3>
+        
+        <div class="time-selection">
+          <div class="time-input">
+            <label>Start Time:</label>
+            <input type="time" id="startTimeInput" value="16:30">
+          </div>
+          
+          <div class="time-input">
+            <label>End Time:</label>
+            <input type="time" id="endTimeInput" value="20:00">
+          </div>
+        </div>
+        
+        <div class="modal-actions">
+          <button id="confirmSchedule">Save Schedule</button>
+          <button id="cancelSchedule">Cancel</button>
+        </div>
       </div>
     </div>
     
