@@ -641,26 +641,6 @@ span.room-status {
   cursor: pointer;
 }
 
-/* Fade-in down animation */
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-.room-control {
-  opacity: 0;
-  animation: fadeInDown 0.5s ease forwards;
-}
 
-/* Optional: stagger animation delays if you want them to cascade */
-.room-control:nth-child(1) { animation-delay: 0.05s; }
-.room-control:nth-child(2) { animation-delay: 0.1s; }
-.room-control:nth-child(3) { animation-delay: 0.15s; }
-/* Add more if you expect more than 3 per page */
-
+/*# sourceMappingURL=/style.e308ff8e.css.map */
