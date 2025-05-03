@@ -26,15 +26,16 @@
 
     <title>Smart Home | Thermostat Widget</title>
   </head>
-  <body>
+  <body class="dark-mode">
     <div class="main-container">
+      <!-- Room display -->
       <div class="container animate__animated animate__fadeInUp">
         <div class="top-content">
           <div>
             <h1 class="logo">Thermostat</h1>
-          <button id="addRoomBtn">Add Room</button>
           </div>
           <select id="rooms"></select>
+          <div id="addRoomBtn">+</div>
         </div>
 
         <!-- Interior card -->
@@ -44,7 +45,7 @@
             <p class="currentTemp">27°</p>
           </div>
         </div>
-        
+
         <div class="main-content">
           <div class="temperature">
             <svg
