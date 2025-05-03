@@ -32,11 +32,11 @@ body {
 }
 
 .container {
-  padding: 30px 30px 0 30px;
+  padding: 30px 20px 0 20px;
   background-color: #ffffff;
   border-radius: 8px;
   cursor: pointer;
-  width: 450px;
+  width: 400px;
 }
 
 .main-container {
@@ -54,20 +54,21 @@ body {
 .top-content {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
   margin: 0 0 30px 0;
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 #rooms {
-  border: none;
+  border: 1px solid #e7e7e7;
   background: none;
+  border-radius: 4px;
   cursor: pointer;
-  outline: none;
   font-weight: 500;
+  outline: none;
 }
 
 .info {
@@ -83,16 +84,13 @@ body {
 
 .temperature {
   position: relative;
-  /* border: solid 2px pink; */
 }
 
 .temperature svg {
-  /* border: solid 1px black; */
   position: absolute;
   left: -100px;
   top: -68px;
   height: 250px;
-  /* margin: 50px 0 50px 0; */
   display: none;
 }
 .indicator {
@@ -101,19 +99,16 @@ body {
 }
 
 svg.point {
-  /* display: none; */
-  /* border: solid 1px pink; */
   position: absolute;
   left: 38px;
   top: 40px;
   height: 24px;
   z-index: 10;
   transition: transform 0.2s ease-in-out;
-  /* transform: translate(18px, -60px); */
 }
 
 #temp {
-  font-size: 72px;
+  font-size: 60px;
 }
 
 .temp-range {
@@ -164,7 +159,6 @@ svg.point {
 
 .inputs {
   margin: 0 0 20px 0;
-  /* border: solid 1px pink; */
   display: flex;
   align-items: center;
   gap: 5px;
@@ -375,12 +369,9 @@ svg.point {
 .bars .bar:nth-child(n + 1):nth-child(-n + 15) {
   background-color: #ffae33;
 }
-/* 
-.time {
-  padding-left: 10px; 
-} */
 
-@media only screen and (max-width: 1020px) {
+
+@media only screen and (max-width: 899px) {
   .main-container {
     flex-direction: column;
     align-items: center;
@@ -402,6 +393,10 @@ svg.point {
     width: 320px;
   }
 
+  .logo {
+    font-size: 16px;
+  }
+
   .bars {
     gap: 3px;
   }
@@ -419,7 +414,7 @@ span.room-status {
 
 .toast {
   position: fixed;
-  bottom: -100px; /* Hidden by default */
+  bottom: -100px; 
   right: 30px;
   background-color: var(--cool-blue);
   color: white;
@@ -435,8 +430,12 @@ span.room-status {
 #addRoomBtn {
   background-color: var(--cool-blue);
   color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
   border: none;
   cursor: pointer;
   font-weight: semibold;
@@ -459,7 +458,8 @@ span.room-status {
 .modal {
   position: fixed;
   top: 0; left: 0;
-  width: 100%; height: 100%;
+  width: 100%; 
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex; justify-content: center; align-items: center;
   z-index: 10000;
